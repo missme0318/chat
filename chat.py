@@ -7,6 +7,7 @@ def read_file(filename):
 
 def convert(lines, person1, person2):
 	chat = []
+	person = None  #預設為空值，避免讀取的檔案第一行沒有人名而產生錯誤(與第18行一組)
 	for line in lines:
 		if person1 == line:
 			person = line
@@ -14,7 +15,8 @@ def convert(lines, person1, person2):
 		elif person2 == line:
 			person = line
 			continue
-		chat.append(str(person + ': ' + line))
+		if person: #可理解為如果person有值，才執行....(與第10行一組)
+			chat.append(str(person + ': ' + line))
 	return chat
 
 def output_file(filename,convertor):
@@ -24,7 +26,9 @@ def output_file(filename,convertor):
 
 
 
+def main():
+	lines = read_file('對話紀錄相關檔案/對話紀錄1/input.txt')
+	convertor = convert(lines, 'Allen', 'Tom')
+	save_file = output_file('對話紀錄相關檔案/對話紀錄1/output.txt', convertor)
 
-lines = read_file('對話紀錄相關檔案/對話紀錄1/input.txt')
-convertor = convert(lines, 'Allen', 'Tom')
-output_file('對話紀錄1/output1.txt', convertor)
+main()
